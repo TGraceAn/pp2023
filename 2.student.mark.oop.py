@@ -34,7 +34,7 @@ class student(info):
                 if c.marksheet[i].student == self:
                     c.marksheet[i].getmark()
                     i = True
-                    break
+                    break 
             if i == False:
                 print("Error")
 
@@ -85,9 +85,9 @@ def input_courses(c,s):
         return input_courses() #recursion
     else:
         for i in range(n):
-            m = []
             id = input("Enter the id of the course: ")
             name = input("Enter the name of the course: ")
+            m = []
             marksheet = create_marksheet(m,s)
             print("")
             c.append(course(id,name, marksheet))
@@ -140,19 +140,28 @@ def marksheet_interface(c):
         c.marksheet[i].getmark()
         print("")
 
+#Add more mark of students into marksheet
+def update_marksheet(marksheet,s):
+    for i in range(len(s)):
+        found = False
+        for j in range(len(marksheet)):
+            if s[i] == marksheet[j].student:
+                found = True
+                break
+        if found == False:
+            print(f"Input the mark for: {s[i].id} _ {s[i].name}")
+            n = input_midterm(s[i])
+            m = input_final(s[i])
+            marksheet.append(mark(s[i],n,m))
+        
 
 
 
 #MAIN
 def main():
     print("Welcome! ")
-    #student list
     s = []
-    input_students(s)
-    #courses list
     c = []
-    input_courses(c,s)
-    
     while True:
         print(textwrap.dedent("""
         What else do you want to do?
@@ -162,7 +171,8 @@ def main():
             4- Show marksheet of a course
             5- Display all students info
             6- Show all courses info
-            7- Exit
+            7- Add new students to a course
+            8- Exit
         """))
         choice = int(input("Enter your choice: "))
         match choice:
@@ -176,7 +186,7 @@ def main():
                         Choose your way of finding
                             1- Find course using course ID:
                             2- Find course using course Name:
-                            3- Exit """))
+                            3- Exit """))       
                     option = int(input("Option: "))
                     match option:
                         case 1:
@@ -227,7 +237,7 @@ def main():
                         Choose your way of finding
                             1- Find course using course ID:
                             2- Find course using course Name:
-                            3- Exit """))
+                            3- Exit """))      
                     option = int(input("Option: "))
                     match option:
                         case 1:
@@ -257,21 +267,48 @@ def main():
                         case default:
                             print("Invalid, please enter again")
             case 5:
-                    student_interface(s)
+                student_interface(s)
             case 6:
-                    course_interface(c)
+                course_interface(c)
             case 7:
+                while True:
+                    print(textwrap.dedent("""
+                        Choose your course
+                            1- Find course using course ID:
+                            2- Find course using course Name:
+                            3- Exit """))      
+                    option = int(input("Option: "))
+                    match option:
+                        case 1:
+                            newID = input("Enter the course ID: ")
+                            find_course = False
+                            for i in range(len(c)):
+                                if c[i].id == newID:
+                                    find_course = True
+                                    update_marksheet(c[i].marksheet,s)
+                                    break
+                            if find_course == False:
+                                print("Sorry, I can't do that")
+                            break
+                        case 2:
+                            newname = input("Enter the course name: ")
+                            find_course = False
+                            for i in range(len(c)):
+                                if c[i].name == newname:
+                                    find_course = True
+                                    update_marksheet(c[i].marksheet,s)
+                                    break
+                            if find_course == False:
+                                print("Sorry, I can't do that")
+                            break
+                        case 3:
+                            break
+                        case default:
+                            print("Invalid, please enter again")
+            case 8:
                 break
             case default:
                 print("The heck did you choose? Choose from 1-7 only: ")
 
-
-def main2():
-    s = []
-    input_students(s)
-    #courses list
-    c = []
-    input_courses(c,s)
-    print(type(c[0].marksheet))
 
 main()
