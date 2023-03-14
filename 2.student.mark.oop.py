@@ -35,8 +35,8 @@ class student(info):
                     c.marksheet[i].getmark()
                     i = True
                     break 
-            if i == False:
-                print("Error")
+        if i == False:
+            print("Error")
 
 #course has a marksheet, marksheet has a list of students
 class course(info):
@@ -68,7 +68,7 @@ def input_students(s):
     n = int(input("Enter the number of student(s): "))
     if n <= 0:
         print("Invalid number of students")
-        return input_students() #recursion
+        return input_students(s) #recursion --> try to avoid (can simply to change with a while)
     else:
         for i in range(n):
             id = input("Enter the id of the student: ")
@@ -308,7 +308,7 @@ def main():
             case 8:
                 break
             case default:
-                print("The heck did you choose? Choose from 1-7 only: ")
+                print("Choose from 1-8 only: ")
 
 
 main()
