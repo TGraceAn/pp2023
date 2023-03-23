@@ -23,7 +23,8 @@ def main_test():
                 10- Cal GPA of all students
                 11- Display GPA of a student
                 12- Sort student by GPA
-                13- Exit
+                13- Show mark of a student in a course
+                14- Exit
             """
         ))
         option = input("Enter your option: ")
